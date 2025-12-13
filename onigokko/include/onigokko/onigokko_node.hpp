@@ -15,6 +15,7 @@ public:
 
 private:
     const double dummy_parameter;
+    rclcpp::QoS _qos;
 };
 
 }
