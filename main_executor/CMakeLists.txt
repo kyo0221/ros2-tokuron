@@ -7,6 +7,7 @@ endif()
 
 # find dependencies<-パッケージが追加されたらここに追記
 find_package(rclcpp REQUIRED)
+find_package(onigokko REQUIRED)
 
 add_executable(main_exec
         src/main.cpp
@@ -15,6 +16,7 @@ add_executable(main_exec
 # パッケージが追加されたらここに追記
 ament_target_dependencies(main_exec
         rclcpp
+        onigokko
         )
 
 target_include_directories(main_exec
