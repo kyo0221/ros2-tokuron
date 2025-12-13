@@ -1,5 +1,6 @@
 #include <rclcpp/rclcpp.hpp>
 #include "onigokko/onigokko_node.hpp"
+#include "teleop_omni/teleop_omni_node.hpp"
 
 int main(int argc, char * argv[]){
     rclcpp::init(argc,argv);
@@ -10,8 +11,10 @@ int main(int argc, char * argv[]){
     nodes_option.automatically_declare_parameters_from_overrides(true);
 
     auto onigokko_node = std::make_shared<onigokko::OnigokkoNode>(nodes_option);
+    auto teleop_omni_node = std::make_shared<teleop_omni::TeleopOmniNode>(nodes_option);
 
     exec.add_node(onigokko_node);
+    exec.add_node(teleop_omni_node);
 
     exec.spin();
     rclcpp::shutdown();
