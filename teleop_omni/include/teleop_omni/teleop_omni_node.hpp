@@ -39,7 +39,7 @@ private:
     const double angular_max_vel_;
 
     bool autonomous_flag_;
-    bool prev_start_button_;
+    bool prev_auto_button_;
 
     rclcpp::QoS _qos;
 };

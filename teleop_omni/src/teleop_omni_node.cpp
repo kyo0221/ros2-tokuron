@@ -9,7 +9,7 @@ TeleopOmniNode::TeleopOmniNode(const std::string& name_space, const rclcpp::Node
 linear_max_vel_(this->get_parameter("linear_max.vel").as_double()),
 angular_max_vel_(this->get_parameter("angular_max.vel").as_double() * M_PI / 180.0),
 autonomous_flag_(false),
-prev_start_button_(false),
+prev_auto_button_(false),
 _qos(rclcpp::QoS(10))
 {
     joy_sub_ = this->create_subscription<sensor_msgs::msg::Joy>(
@@ -27,8 +27,8 @@ _qos(rclcpp::QoS(10))
 
 void TeleopOmniNode::joyCallback(const sensor_msgs::msg::Joy::SharedPtr msg)
 {
-    bool start_button = msg->buttons[static_cast<int>(Button::Start)];
-    if(start_button && !prev_start_button_){
+    bool auto_button = msg->buttons[static_cast<int>(Button::Back)];
+    if(auto_button && !prev_auto_button_){
         autonomous_flag_ = !autonomous_flag_;
         auto autonomous_msg = std_msgs::msg::Bool();
         autonomous_msg.data = autonomous_flag_;
@@ -40,7 +40,7 @@ void TeleopOmniNode::joyCallback(const sensor_msgs::msg::Joy::SharedPtr msg)
             RCLCPP_INFO(this->get_logger(), "自律フラグfalse");
         }
     }
-    prev_start_button_ = start_button;
+    prev_auto_button_ = auto_button;
 
     if(!autonomous_flag_){
         auto twist_msg = geometry_msgs::msg::Twist();
