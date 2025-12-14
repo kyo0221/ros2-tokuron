@@ -23,8 +23,6 @@ chassis_driver_node:
     stop_canid : 0x100
     restart_canid : 0x101
     velocity_canid : 0x108
-    linear_max_vel: 1.0 # 最大並進速度[m/s]
-    angular_max_vel: 60.0 # 最大回転速度[deg/s]
 
 socketcan_interface_node:
   ros__parameters:

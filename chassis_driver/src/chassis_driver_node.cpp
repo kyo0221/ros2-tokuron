@@ -17,8 +17,8 @@ attached_direction(get_parameter("attached_direction").as_double()),
 stop_canid(static_cast<uint32_t>(get_parameter("stop_canid").as_int())),
 restart_canid(static_cast<uint32_t>(get_parameter("restart_canid").as_int())),
 velocity_canid(static_cast<uint32_t>(get_parameter("velocity_canid").as_int())),
-linear_max_vel(get_parameter("linear_max_vel").as_double()),
-angular_max_vel(dtor(get_parameter("angular_max_vel").as_double())),
+linear_max_vel(this->get_parameter("linear_max.vel").as_double()),
+angular_max_vel(dtor(this->get_parameter("angular_max.vel").as_double())),
 sqrt2over2(std::sqrt(2.0) / 2.0)
 {
     _subscription_vel = this->create_subscription<geometry_msgs::msg::Twist>(
