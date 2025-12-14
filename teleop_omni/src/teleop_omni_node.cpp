@@ -17,6 +17,7 @@ _qos(rclcpp::QoS(10))
 
     cmd_vel_pub_ = this->create_publisher<geometry_msgs::msg::Twist>("/cmd_vel", _qos);
     autonomous_pub_ = this->create_publisher<std_msgs::msg::Bool>("/autonomous", _qos);
+    restart_pub_ = this->create_publisher<std_msgs::msg::Empty>("/restart", _qos);
 
     auto autonomous_msg = std_msgs::msg::Bool();
     autonomous_msg.data = autonomous_flag_;
@@ -33,6 +34,9 @@ void TeleopOmniNode::joyCallback(const sensor_msgs::msg::Joy::SharedPtr msg)
         auto autonomous_msg = std_msgs::msg::Bool();
         autonomous_msg.data = autonomous_flag_;
         autonomous_pub_->publish(autonomous_msg);
+
+        auto restart_msg = std_msgs::msg::Empty();
+        restart_pub_->publish(restart_msg);
 
         if(autonomous_flag_){
             RCLCPP_INFO(this->get_logger(), "自律フラグtrue");
