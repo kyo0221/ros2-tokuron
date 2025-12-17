@@ -10,11 +10,11 @@ OnigokkoNode::OnigokkoNode(const rclcpp::NodeOptions& options) : OnigokkoNode(""
 
 OnigokkoNode::OnigokkoNode(const std::string& name_space, const rclcpp::NodeOptions& options)
 : rclcpp::Node("onigokko_node", name_space, options),
-  cloud_topic_(this->declare_parameter<std::string>("cloud_topic", "/livox/lidar")),
-  max_vel_(this->declare_parameter<double>("max_vel", 0.5)),
-  ignore_range_(this->declare_parameter<double>("ignore_range", 0.3)),
-  min_z_(this->declare_parameter<double>("min_z", -0.2)),
-  max_z_(this->declare_parameter<double>("max_z", 1.0)),
+  cloud_topic_(this->get_parameter("cloud_topic").as_string()),
+  max_vel_(this->get_parameter("linear_max.vel").as_double()),
+  ignore_range_(this->get_parameter("ignore_range").as_double()),
+  min_z_(this->get_parameter("min_z").as_double()),
+  max_z_(this->get_parameter("max_z").as_double()),
   autonomous_flag_(false),
   target_angle_(0.0),
   _qos(rclcpp::QoS(10))
