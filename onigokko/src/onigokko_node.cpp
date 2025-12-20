@@ -13,6 +13,7 @@ OnigokkoNode::OnigokkoNode(const std::string& name_space, const rclcpp::NodeOpti
   cloud_topic_(this->get_parameter("cloud_topic").as_string()),
   max_vel_(this->get_parameter("linear_max.vel").as_double()),
   ignore_range_(this->get_parameter("ignore_range").as_double()),
+  max_range_(this->get_parameter("max_range").as_double()),
   min_z_(this->get_parameter("min_z").as_double()),
   max_z_(this->get_parameter("max_z").as_double()),
   autonomous_flag_(false),
@@ -50,9 +51,9 @@ void OnigokkoNode::computeVel(const sensor_msgs::msg::PointCloud2 & msg)
         return;
     }
 
-    double min_distance = std::numeric_limits<double>::max();
-    double min_x = 0.0;
-    double min_y = 0.0;
+    double max_distance = 0.0;
+    double max_x = 0.0;
+    double max_y = 0.0;
 
     for (sensor_msgs::PointCloud2ConstIterator<float> it_x(msg, "x"), it_y(msg, "y"), it_z(msg, "z");
          it_x != it_x.end(); ++it_x, ++it_y, ++it_z)
@@ -62,25 +63,21 @@ void OnigokkoNode::computeVel(const sensor_msgs::msg::PointCloud2 & msg)
         const float z = *it_z;
 
         const double distance = std::sqrt(x * x + y * y);
-        if (distance < ignore_range_ || z < min_z_ || z > max_z_)
+        if (distance < ignore_range_ || distance > max_range_ || z < min_z_ || z > max_z_)
         {
             continue;
         }
 
-        if (distance < min_distance)
+        if (distance > max_distance)
         {
-            min_distance = distance;
-            min_x = x;
-            min_y = y;
+            max_distance = distance;
+            max_x = x;
+            max_y = y;
         }
+
     }
 
-    if (min_distance == std::numeric_limits<double>::max())
-    {
-        return;
-    }
-
-    target_angle_ = std::atan2(min_y, min_x) + M_PI;
+    target_angle_ = std::atan2(max_y, max_x);
 
     geometry_msgs::msg::Twist cmd_vel;
     cmd_vel.linear.x = max_vel_ * std::cos(target_angle_);
