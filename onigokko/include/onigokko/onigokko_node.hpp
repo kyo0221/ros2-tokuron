@@ -29,6 +29,7 @@ private:
     const std::string cloud_topic_;
     const double max_vel_;
     const double ignore_range_;
+    const double max_range_;
     const double min_z_;
     const double max_z_;
 

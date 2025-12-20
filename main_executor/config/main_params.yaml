@@ -32,5 +32,6 @@ onigokko_node:
   ros__parameters:
     cloud_topic : "/livox/lidar"  # 使用するポイントクラウドトピック名                 # 最大速度[m/s]
     ignore_range : 0.3             # 無視する距離[m]
+    max_range : 5.0              # 有効な点群の最大距離[m]
     min_z : -0.2                 # 有効な点群の最低z座標[m]
     max_z : 1.0                 # 有効な点群の最高z座標[m]
