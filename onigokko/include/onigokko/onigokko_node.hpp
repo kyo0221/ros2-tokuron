@@ -5,6 +5,7 @@
 #include <sensor_msgs/point_cloud2_iterator.hpp>
 #include <geometry_msgs/msg/twist.hpp>
 #include <std_msgs/msg/bool.hpp>
+#include <cstddef>
 #include "onigokko/visibility_control.hpp"
 
 namespace onigokko{
@@ -32,9 +33,12 @@ private:
     const double max_range_;
     const double min_z_;
     const double max_z_;
+    const std::size_t direction_count_;
 
     bool autonomous_flag_;
     double target_angle_;
+    double last_cmd_angle_;
+    bool has_last_cmd_angle_;
 
     rclcpp::QoS _qos;
 };

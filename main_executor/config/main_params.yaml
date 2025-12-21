@@ -35,3 +35,4 @@ onigokko_node:
     max_range : 5.0              # 有効な点群の最大距離[m]
     min_z : -0.2                 # 有効な点群の最低z座標[m]
     max_z : 1.0                 # 有効な点群の最高z座標[m]
+    direction_count : 8         # 点群方向の分割数
