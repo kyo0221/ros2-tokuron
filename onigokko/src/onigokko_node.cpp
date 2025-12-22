@@ -52,8 +52,8 @@ void OnigokkoNode::computeVel(const sensor_msgs::msg::PointCloud2 & msg)
     }
 
     const int sector_count = 36;
-    const double blend_open = 0.35;       // 0:逃避のみ, 1:空き方向のみ（0.2~0.5推奨）
-    const double angle_smooth = 0.25;     // 角度平滑化（0.15~0.35推奨）
+    const double blend_open = 0.5;       // 0:逃避のみ, 1:空き方向のみ（0.2~0.5推奨）
+    const double angle_smooth = 1.0;     // 角度平滑化（0.15~0.35推奨）
     const double max_clear_cap = 5.0;     // “点が無い=無限”扱いを上限で丸める
     const double eps = 1e-6;              // ★ 同率判定用（浮動小数誤差対策）
 

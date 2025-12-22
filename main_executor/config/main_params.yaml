@@ -8,7 +8,7 @@ launch:
     # Linear velocity[m/s], acceleration[m/s^2], deceleration[-m/s^2], jerk[m/s^3]
     linear_max:
       vel: 1.0
-      acc: 5.0
+      acc: 2.0
       jer: 0.0
     # Angular velocity[deg/s], acceleration[deg/s^2], deceleration[-deg/s^2], jerk[deg/s^3]
     angular_max:
@@ -31,6 +31,6 @@ socketcan_interface_node:
 onigokko_node:
   ros__parameters:
     cloud_topic : "/livox/lidar"  # 使用するポイントクラウドトピック名                 # 最大速度[m/s]
-    ignore_range : 0.3             # 無視する距離[m]
-    min_z : -0.2                 # 有効な点群の最低z座標[m]
+    ignore_range : 0.4             # 無視する距離[m]
+    min_z : -0.3                 # 有効な点群の最低z座標[m]
     max_z : 1.0                 # 有効な点群の最高z座標[m]
